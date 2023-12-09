@@ -1,24 +1,3 @@
-# class Employee:
-#     def __init__(self, name, age):
-#         self.name = name
-#         self.age = age
-#         self.next = None
-# head = Employee("Amy", 25)
-# head.next = 
-
-# newnode = Employee("Eddy", 43)
-# newnode.next = 
-
-# def traverse(head):
-#     ptr = head
-#     while ptr != None:
-#         print("The student name is {} and the math  score is {}.".format(ptr.name, ptr.age))
-#         ptr = ptr.next
-#     print("Finish traverse!")
-
-# traverse(head)
-
-
 class Employee:
     def __init__(self, name, age):
         self.name = name
