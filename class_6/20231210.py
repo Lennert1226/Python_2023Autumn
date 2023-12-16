@@ -1,4 +1,16 @@
 #python
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+# import secret key
+# path/to/serviceaccount
+cred = credentials.Certificate("C:/Users/SP513-52N/Documents/Python_2023Autumn/firebase_token.json")
+# Initiate firebase
+firebase_admin.initialize_app(cred)
+# Initiate firestore
+db = firestore.client()
+'''
 import pyrebase
 from tkinter import *
 config = {
@@ -26,8 +38,10 @@ resultlabel = Label(root, text = "")
 #創建帳號跟密把輸入框
 accountentry = Entry(root)
 #密碼輸入會顯示為星號
-passwordentry = Entry(root, show="*")
+passwordentry = Entry(root, show = "*")
 signupbutton = Button(root, text = "Sign up", width = 10, command=lambda: adduser(root, accountentry, passwordentry))
+loginbutton = Button(root, text = "Login", width = 10, command=lambda: verifyUser(root, accountentry, passwordentry))
+
 
 #放置元件
 loginlabel.pack(pady=5)
@@ -37,6 +51,7 @@ resultlabel.pack(pady=5)
 accountentry.pack(pady=5)
 passwordentry.pack(pady=5)
 signupbutton.pack(pady=5)
+loginbutton.pack(pady=5)
 
 # 登入firebase
 def adduser(view, accountentry, passwordentry):
@@ -53,8 +68,25 @@ def adduser(view, accountentry, passwordentry):
     except Exception as e:
         print(f"創建使用者失敗: {e}")
         resultlabel["text"] = "Create user failed!"
-root.mainloop()
 
+# Login from Firebase function
+def verifyUser(view, accountentry, passwordentry):
+    #取得使用者輸入的帳密，顯示在terminal
+    print(accountentry.get(), passwordentry.get())
+    print("Log in...")
+    #將帳號密碼處存到變數內
+    account = accountentry.get()
+    password = passwordentry.get()
+    try:
+        user = auth.sign_in_with_email_and_password(account, password)
+        print("Successfully logged in!")
+        resultlabel.config(text="Successfully logged in!")
+    except Exception as e:
+        print(f"Log in failed!: {e}")
+        resultlabel["text"] = "Log in failed!"
+
+root.mainloop()
+'''
 
 class Car:
     def __init__(self, color):
@@ -77,5 +109,16 @@ head = newnode
 newnode2 = Car("Black")
 head.next.next = newnode2
 newnode2.next = None
+
+newnode3 = Car("Pink")
+newnode3.next = head.next.next
+head.next.next = newnode3
+
+head.next.next = newnode3.next
+
+top = head
+head = head.next
+
+head.next = None
 
 traverse(head)
