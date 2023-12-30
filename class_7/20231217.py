@@ -32,20 +32,20 @@ db = firestore.client()
 
 # doc_ref.set(doc)
 
-# collection_name = "Autumn2023-Student"
-# document_name = "Student01"
-# doc_ref = db.collection(collection_name).document(document_name)
+collection_name = "Autumn_students"
+document_name = "student011"
+doc_ref = db.collection(collection_name).document(document_name)
 
-# path = "Autumn2023-Student/Student01"
-# doc_ref = db.document(path)
+path = "Autumn_students/student011"
+doc_ref = db.document(path)
 
-# try:
-#     doc = doc_ref.get()
-#     doc_dict = doc.to_dict()
-#     print("The content of the document is : {}".format(doc_dict()))
-# except:
-#     print("The reference of document is not exsist, please check the path is correct or not. {}".format(path))
-
+try:
+    doc = doc_ref.get()
+    doc_dict = doc.to_dict()
+    print("The content of the document is : {}".format(doc_dict))
+except Exception as e:
+    print("The reference of document is not exsist, please check the path is correct or not. {}".format(path))
+    print(e)
 
 # path = "Autumn_students"
 # collection_ref = db.collection(path)
@@ -85,7 +85,7 @@ db = firestore.client()
 # def_ref = db.document(path)
 # doc_ref.delete()
 
-students_ref = db.collection("Autumn2023_Students")
-docs = students_ref.get()
-for doc in docs:
-    doc.reference.delete()
+# students_ref = db.collection("Autumn2023_Students")
+# docs = students_ref.get()
+# for doc in docs:
+#     doc.reference.delete()

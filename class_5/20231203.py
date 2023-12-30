@@ -56,26 +56,26 @@ def adduser(view, accountentry, passwordentry):
 root.mainloop()
 
 
-class Car:
-    def __init__(self, color):
-        self.color = color
-        self.next = None
-head = Car("Red")
-head.next = None
+# class Car:
+#     def __init__(self, color):
+#         self.color = color
+#         self.next = None
+# head = Car("Red")
+# head.next = None
 
-def traverse(head):
-    ptr = head
-    while ptr != None:
-        print("The color of the car is {}.".format(ptr.color))
-        ptr = ptr.next
-    print("Finish traverse!")
+# def traverse(head):
+#     ptr = head
+#     while ptr != None:
+#         print("The color of the car is {}.".format(ptr.color))
+#         ptr = ptr.next
+#     print("Finish traverse!")
 
-newnode = Car("Blue")
-newnode.next = head
-head = newnode
+# newnode = Car("Blue")
+# newnode.next = head
+# head = newnode
 
-newnode2 = Car("Black")
-head.next.next = newnode2
-newnode2.next = None
+# newnode2 = Car("Black")
+# head.next.next = newnode2
+# newnode2.next = None
 
-traverse(head)
+# traverse(head)
