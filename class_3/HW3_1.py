@@ -12,3 +12,5 @@ for row in range(3):
     for col in range(3):
         print(c[row][col], end='\t')
     print("")
+
+# big oh = O(n2)
