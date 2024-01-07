@@ -15,83 +15,6 @@ root.geometry("880x650")
 #儲存使用者的email及password(最後要寄帳單給使用者)
 userInfo = [["email"],["password"]]
 
-
-
-
-import pyrebase
-
-
-config = {
-    "apiKey": "AIzaSyCCuazXE1XoivXDdZ_5bfNXOeOaa0DD_yM",
-    "authDomain": "fir-test-df8a5.firebaseapp.com",
-    "projectId": "fir-test-df8a5",
-    "storageBucket": "fir-test-df8a5.appspot.com",
-    "messagingSenderId": "289290124982",
-    "appId": "1:289290124982:web:e3a63485b1d4b42d26f017",
-    "databaseURL" : ""
-}
-
-# Connect firebase and the python script by using app config
-firebase = pyrebase.initialize_app(config)
-auth = firebase.auth()
-
-#初始化Tkinter
-root = Tk()
-
-loginlabel = Label(root, text = "Login Page")
-accountlabel = Label(root, text = "Account")
-passwordlabel = Label(root, text = "Password")
-resultlabel = Label(root, text = "")
-
-#創建帳號跟密把輸入框
-accountentry = Entry(root)
-#密碼輸入會顯示為星號
-passwordentry = Entry(root, show = "*")
-signupbutton = Button(root, text = "Sign up", width = 10, command=lambda: adduser(root, accountentry, passwordentry))
-loginbutton = Button(root, text = "Login", width = 10, command=lambda: verifyUser(root, accountentry, passwordentry))
-
-
-#放置元件
-loginlabel.pack(pady=5)
-accountlabel.pack(pady=5)
-passwordlabel.pack(pady=5)
-resultlabel.pack(pady=5)
-accountentry.pack(pady=5)
-passwordentry.pack(pady=5)
-signupbutton.pack(pady=5)
-loginbutton.pack(pady=5)
-
-# 登入firebase
-def adduser(view, accountentry, passwordentry):
-    #取得使用者輸入的帳密，顯示在terminal
-    print(accountentry.get(), passwordentry.get())
-    print("Sign up...")
-    #將帳號密碼處存到變數內
-    account = accountentry.get()
-    password = passwordentry.get()
-    try:
-        user = auth.create_user_with_email_and_password(account, password)
-        print("Successfully sign up!")
-        resultlabel.config(text="Successfully sign up!")
-    except Exception as e:
-        print(f"創建使用者失敗: {e}")
-        resultlabel["text"] = "Create user failed!"
-
-# Login from Firebase function
-def verifyUser(view, accountentry, passwordentry):
-    #取得使用者輸入的帳密，顯示在terminal
-    print(accountentry.get(), passwordentry.get())
-    print("Log in...")
-    #將帳號密碼處存到變數內
-    account = accountentry.get()
-    password = passwordentry.get()
-    try:
-        user = auth.sign_in_with_email_and_password(account, password)
-        print("Successfully logged in!")
-        resultlabel.config(text="Successfully logged in!")
-    except Exception as e:
-        print(f"Log in failed!: {e}")
-        resultlabel["text"] = "Log in failed!"
 cost=0
 
 def ads(adtype):
@@ -121,7 +44,7 @@ def checkout():
         subtotal4 = int(productnumber4["text"])*int(productprice4["text"].split(".")[1].replace(",","").strip())
         total = subtotal1+subtotal2+subtotal3+subtotal4
         if decision:
-            content = "已加購Air Jordan XXXVII 低筒 PF!"+"您剛剛已在Nike Shop 消費了"+str(total+5040)+"元。"
+            content = "已加購Air Jordan XXXVII 低筒 PF!"+"您好，您剛剛已在Nike Shop 消費了"+str(total+5040)+"元。"
         else:
             content = "您好，您剛剛已在Nike Shop 消費了"+str(total)+"元。"
         smtp = smtplib.SMTP(host = "smtp.gmail.com", port="587")
@@ -161,6 +84,12 @@ def checkout():
     productname2.grid(row=4, column=0, sticky=W, padx=5, columnspan=2)
     productprice2 = Label(checkoutwindow, text="NT.5040", font=("Inter", 10), fg="#000000")
     productprice2.grid(row=5, column=0, sticky=W, padx=5)
+    # minusbutton2 = Button(checkoutwindow, text="-", font=("Inter", 10), fg="#1E1E1E", bg="#E7E2E2",command=lambda: minus(productnumber1,productprice1))
+    # minusbutton2.grid(row=5, column=0, sticky=E)
+    # productnumber2 = Label(checkoutwindow, text="0", font=("Inter", 12, "bold"), fg="#000000")
+    # productnumber2.grid(row=5, column=1)
+    # addbutton2 = Button(checkoutwindow, text="+", font=("Inter", 10), fg="#1E1E1E", bg="#E7E2E2",command=lambda: add(productnumber1, productprice1))
+    # addbutton2.grid(row=5, column=2, sticky=W)
     asklabel = Label(checkoutwindow, text="您要加購嗎?要的話請按Yes，不要的話請按No~")
     asklabel.grid(row=0, column=0, columnspan=3)
     yesbutton = Button(checkoutwindow, text="Yes", command=lambda:sendemail(TRUE))
@@ -291,7 +220,7 @@ def login():
 
 
 # row=0
-titleimg = Image.open("../class_6/img/d63d5f27d6e46a6918a26f36a5f31c0f.jpg")
+titleimg = Image.open("class_6/img/d63d5f27d6e46a6918a26f36a5f31c0f.jpg")
 titleimg = titleimg.resize((32,32))
 titleimg = ImageTk.PhotoImage(titleimg)
 titlelabel = Label(root, image=titleimg, width=32, height=32)
@@ -407,3 +336,85 @@ checkoutbutton.grid(row=5, column=7, sticky=E+S, padx=5, pady=1)
 
 
 root.mainloop()
+
+
+
+
+
+
+
+
+
+import pyrebase
+from tkinter import *
+config = {
+    "apiKey": "AIzaSyCCuazXE1XoivXDdZ_5bfNXOeOaa0DD_yM",
+    "authDomain": "fir-test-df8a5.firebaseapp.com",
+    "projectId": "fir-test-df8a5",
+    "storageBucket": "fir-test-df8a5.appspot.com",
+    "messagingSenderId": "289290124982",
+    "appId": "1:289290124982:web:e3a63485b1d4b42d26f017",
+    "databaseURL" : ""
+}
+
+# Connect firebase and the python script by using app config
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
+
+#初始化Tkinter
+root = Tk()
+
+loginlabel = Label(root, text = "Login Page")
+accountlabel = Label(root, text = "Account")
+passwordlabel = Label(root, text = "Password")
+resultlabel = Label(root, text = "")
+
+#創建帳號跟密把輸入框
+accountentry = Entry(root)
+#密碼輸入會顯示為星號
+passwordentry = Entry(root, show = "*")
+signupbutton = Button(root, text = "Sign up", width = 10, command=lambda: adduser(root, accountentry, passwordentry))
+loginbutton = Button(root, text = "Login", width = 10, command=lambda: verifyUser(root, accountentry, passwordentry))
+
+
+#放置元件
+loginlabel.pack(pady=5)
+accountlabel.pack(pady=5)
+passwordlabel.pack(pady=5)
+resultlabel.pack(pady=5)
+accountentry.pack(pady=5)
+passwordentry.pack(pady=5)
+signupbutton.pack(pady=5)
+loginbutton.pack(pady=5)
+
+# 登入firebase
+def adduser(view, accountentry, passwordentry):
+    #取得使用者輸入的帳密，顯示在terminal
+    print(accountentry.get(), passwordentry.get())
+    print("Sign up...")
+    #將帳號密碼處存到變數內
+    account = accountentry.get()
+    password = passwordentry.get()
+    try:
+        user = auth.create_user_with_email_and_password(account, password)
+        print("Successfully sign up!")
+        resultlabel.config(text="Successfully sign up!")
+    except Exception as e:
+        print(f"創建使用者失敗: {e}")
+        resultlabel["text"] = "Create user failed!"
+
+# Login from Firebase function
+def verifyUser(view, accountentry, passwordentry):
+    #取得使用者輸入的帳密，顯示在terminal
+    print(accountentry.get(), passwordentry.get())
+    print("Log in...")
+    #將帳號密碼處存到變數內
+    account = accountentry.get()
+    password = passwordentry.get()
+    try:
+        user = auth.sign_in_with_email_and_password(account, password)
+        print("Successfully logged in!")
+        resultlabel.config(text="Successfully logged in!")
+    except Exception as e:
+        print(f"Log in failed!: {e}")
+        resultlabel["text"] = "Log in failed!"

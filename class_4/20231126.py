@@ -13,7 +13,7 @@ config = {
 #
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
-'''
+
 #sign up
 def signup():
     email = input("Please enter your email: ")
@@ -36,7 +36,7 @@ def login():
     except:
         print("Invalid email or password!")
 login()
-'''
+
 '''
 class Car:
     def __init__(self, color):

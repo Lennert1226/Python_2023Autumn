@@ -25,4 +25,3 @@ all_files = storage.list_files()
 for file in all_files:
     if file.name.startswith(dir_name):
         file.download_to_filename(file.name)
-
